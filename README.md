@@ -1,4 +1,4 @@
-# GraphQL Wallet
+# <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/GraphQL_Logo.svg/1024px-GraphQL_Logo.svg.png?20161105194737" alt="graphql-icon" width="24" align="center"/> GraphQL Wallet
 
 With the new Web3.js 2.0 comes a brand-new client-side GraphQL resolver for the 
 Solana JSON RPC.
