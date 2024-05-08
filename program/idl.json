@@ -1,7 +1,191 @@
 {
   "version": "0.1.0",
   "name": "program",
-  "instructions": [],
+  "instructions": [
+    {
+      "name": "AddCastle",
+      "accounts": [
+        {
+          "name": "castle",
+          "isMut": true,
+          "isSigner": false,
+          "docs": [
+            "The new castle to add."
+          ]
+        },
+        {
+          "name": "authority",
+          "isMut": false,
+          "isSigner": true,
+          "docs": [
+            "Castle authority"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "health",
+          "type": "u32"
+        }
+      ],
+      "discriminant": {
+        "type": "u8",
+        "value": 0
+      }
+    },
+    {
+      "name": "AddWarrior",
+      "accounts": [
+        {
+          "name": "soldier",
+          "isMut": true,
+          "isSigner": false,
+          "docs": [
+            "The new warrior to add."
+          ]
+        },
+        {
+          "name": "authority",
+          "isMut": false,
+          "isSigner": true,
+          "docs": [
+            "Castle authority"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "attack",
+          "type": "u8"
+        },
+        {
+          "name": "health",
+          "type": "u8"
+        },
+        {
+          "name": "stamina",
+          "type": "u8"
+        }
+      ],
+      "discriminant": {
+        "type": "u8",
+        "value": 1
+      }
+    },
+    {
+      "name": "RaidCastle",
+      "accounts": [
+        {
+          "name": "castle",
+          "isMut": true,
+          "isSigner": false,
+          "docs": [
+            "The castle to raid."
+          ]
+        },
+        {
+          "name": "authority",
+          "isMut": false,
+          "isSigner": true,
+          "docs": [
+            "Castle authority"
+          ]
+        },
+        {
+          "name": "warrior1",
+          "isMut": true,
+          "isSigner": false,
+          "isOptional": true,
+          "docs": [
+            "1 of 5 warriors to raid the castle."
+          ]
+        },
+        {
+          "name": "warrior2",
+          "isMut": true,
+          "isSigner": false,
+          "isOptional": true,
+          "docs": [
+            "2 of 5 warriors to raid the castle."
+          ]
+        },
+        {
+          "name": "warrior3",
+          "isMut": true,
+          "isSigner": false,
+          "isOptional": true,
+          "docs": [
+            "3 of 5 warriors to raid the castle."
+          ]
+        },
+        {
+          "name": "warrior4",
+          "isMut": true,
+          "isSigner": false,
+          "isOptional": true,
+          "docs": [
+            "4 of 5 warriors to raid the castle."
+          ]
+        },
+        {
+          "name": "warrior5",
+          "isMut": true,
+          "isSigner": false,
+          "isOptional": true,
+          "docs": [
+            "5 of 5 warriors to raid the castle."
+          ]
+        }
+      ],
+      "args": [],
+      "discriminant": {
+        "type": "u8",
+        "value": 2
+      }
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Castle",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "health",
+            "type": "u32"
+          },
+          {
+            "name": "authority",
+            "type": "publicKey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Warrior",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "attack",
+            "type": "u8"
+          },
+          {
+            "name": "health",
+            "type": "u8"
+          },
+          {
+            "name": "stamina",
+            "type": "u8"
+          },
+          {
+            "name": "authority",
+            "type": "publicKey"
+          }
+        ]
+      }
+    }
+  ],
   "metadata": {
     "origin": "shank",
     "address": "5k4AqmvciyxQu5CBDdb33tGCNvb9bNLC1pSE7Kvk4BEc"

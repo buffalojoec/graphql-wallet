@@ -57,7 +57,7 @@ Note the provided `npm` command will start the local validator with all of the
 necessary account fixtures and the BPF program.
 
 ```
-npm test-validator
+npm run test-validator
 ```
 
 Run the script to generate a bunch of transactions.
@@ -65,7 +65,7 @@ Run the script to generate a bunch of transactions.
 provided.
 
 ```
-npm generate-transactions <LOCAL_VALIDATOR_RPC_ENDPOINT>
+npm run generate-transactions <LOCAL_VALIDATOR_RPC_ENDPOINT>
 ```
 
 Launch the application.
