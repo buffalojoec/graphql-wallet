@@ -38,6 +38,14 @@ and block explorer - that aims to showcase the GraphQL library's capabilities.
 
 ## Running the Demo
 
+**Requirements:**
+
+- NodeJS 20
+- NPM
+- Rust
+- Shank CLI: `cargo-install shank-cli`
+- Solana 1.18: `sh -c "$(curl -sSfL https://release.solana.com/v1.18.12/install)"`
+
 Install the application's dependencies.
 
 ```
