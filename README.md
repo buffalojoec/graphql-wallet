@@ -46,7 +46,7 @@ npm install
 
 In a separate terminal, start a local test validator.
 Note the provided `npm` command will start the local validator with all of the
-necessary account fixtures and the upgradeable BPF program.
+necessary account fixtures and the BPF program.
 
 ```
 npm test-validator
