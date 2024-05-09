@@ -48,6 +48,12 @@ module.exports = {
     devServer: {
         compress: true,
         port: 3000,
+        proxy: [
+            {
+                context: '/api',
+                target: 'http://localhost:3001',
+            }
+        ],
         static: {
             directory: path.join(__dirname, 'public'),
         },

@@ -1,8 +1,8 @@
-import type { RpcGraphQL } from '@solana/rpc-graphql';
 import type { Address, Epoch, LamportsUnsafeBeyond2Pow53Minus1 } from '@solana/web3.js';
 import { useEffect, useState } from 'react';
 import React from 'react';
 
+import { gql } from '../fetch';
 import AddressLookupTableAccount from './accounts/AddressLookupTableAccount';
 import NonceAccount from './accounts/NonceAccount';
 import TokenAccount from './accounts/SplTokenAccount';
@@ -16,7 +16,6 @@ import VoteAccount from './accounts/VoteAccount';
 interface Props {
     address: Address;
     parsed?: string;
-    rpcGraphQL: RpcGraphQL;
 }
 
 /**
@@ -54,15 +53,9 @@ export default function Account(props: Props) {
 
     useEffect(() => {
         const fetchData = async () => {
-            const { address, rpcGraphQL } = props;
-            const response = await rpcGraphQL.query(source, { address });
-            if (response.data?.account) {
-                setData(response.data.account as Data);
-            } else if (response.errors) {
-                response.errors.forEach(e => console.error(e));
-            } else {
-                throw 'Unknown error occurred';
-            }
+            const { address } = props;
+            const response = (await gql(source, { address })) as { account: Data };
+            setData(response.account);
         };
         fetchData();
     }, []);
@@ -70,23 +63,23 @@ export default function Account(props: Props) {
     const parsedAccountData = () => {
         switch (props.parsed) {
             case 'lookupTable':
-                return <AddressLookupTableAccount address={props.address} rpcGraphQL={props.rpcGraphQL} />;
+                return <AddressLookupTableAccount address={props.address} />;
             case 'nonce':
-                return <NonceAccount address={props.address} rpcGraphQL={props.rpcGraphQL} />;
+                return <NonceAccount address={props.address} />;
             case 'tokenAccount':
-                return <TokenAccount address={props.address} rpcGraphQL={props.rpcGraphQL} />;
+                return <TokenAccount address={props.address} />;
             case 'tokenMint':
-                return <MintAccount address={props.address} rpcGraphQL={props.rpcGraphQL} />;
+                return <MintAccount address={props.address} />;
             case 'stake':
-                return <StakeAccount address={props.address} rpcGraphQL={props.rpcGraphQL} />;
+                return <StakeAccount address={props.address} />;
             case 'vote':
-                return <VoteAccount address={props.address} rpcGraphQL={props.rpcGraphQL} />;
+                return <VoteAccount address={props.address} />;
             default:
                 null;
         }
     };
 
-    if (data) {
+    if (data != undefined) {
         return (
             <div>
                 <p>Account: {data.address}</p>

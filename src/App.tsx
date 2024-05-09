@@ -1,7 +1,6 @@
 import './App.css';
 
-import { createRpcGraphQL } from '@solana/rpc-graphql';
-import { type Address, createSolanaRpc } from '@solana/web3.js';
+import { type Address } from '@solana/web3.js';
 import React from 'react';
 
 import Account from './components/Account';
@@ -23,9 +22,6 @@ const STAKE_ACCOUNT_ADDRESS =
 const VOTE_ACCOUNT_ADDRESS =
     '4QUZQ4c7bZuJ4o4L8tYAEGnePFV27SUFEVmC7BYfsXRp' as Address<'4QUZQ4c7bZuJ4o4L8tYAEGnePFV27SUFEVmC7BYfsXRp'>;
 
-const rpc = createSolanaRpc('http://127.0.0.1:8899');
-const rpcGraphQL = createRpcGraphQL(rpc);
-
 function App() {
     return (
         <div className="App">
@@ -33,22 +29,20 @@ function App() {
                 <p>Accounts</p>
             </header>
             <body>
-                <Account address={ADDRESS_LOOKUP_TABLE_ACCOUNT_ADDRESS} parsed="lookupTable" rpcGraphQL={rpcGraphQL} />
-                <Account address={NONCE_ACCOUNT_ADDRESS} parsed="nonce" rpcGraphQL={rpcGraphQL} />
+                <Account address={ADDRESS_LOOKUP_TABLE_ACCOUNT_ADDRESS} parsed="lookupTable" />
+                <Account address={NONCE_ACCOUNT_ADDRESS} parsed="nonce" />
                 <Account
                     address={TOKEN_2022_ACCOUNT_ADDRESS}
                     // parsed="tokenAccount"
-                    rpcGraphQL={rpcGraphQL}
                 />
                 <Account
                     address={TOKEN_2022_MINT_ADDRESS}
                     // parsed="tokenMint"
-                    rpcGraphQL={rpcGraphQL}
                 />
-                <Account address={SPL_TOKEN_ACCOUNT_ADDRESS} parsed="tokenAccount" rpcGraphQL={rpcGraphQL} />
-                <Account address={SPL_TOKEN_MINT_ADDRESS} parsed="tokenMint" rpcGraphQL={rpcGraphQL} />
-                <Account address={STAKE_ACCOUNT_ADDRESS} parsed="stake" rpcGraphQL={rpcGraphQL} />
-                <Account address={VOTE_ACCOUNT_ADDRESS} parsed="vote" rpcGraphQL={rpcGraphQL} />
+                <Account address={SPL_TOKEN_ACCOUNT_ADDRESS} parsed="tokenAccount" />
+                <Account address={SPL_TOKEN_MINT_ADDRESS} parsed="tokenMint" />
+                <Account address={STAKE_ACCOUNT_ADDRESS} parsed="stake" />
+                <Account address={VOTE_ACCOUNT_ADDRESS} parsed="vote" />
             </body>
         </div>
     );

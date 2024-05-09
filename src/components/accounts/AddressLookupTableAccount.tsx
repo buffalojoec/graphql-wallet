@@ -1,14 +1,14 @@
-import type { RpcGraphQL } from '@solana/rpc-graphql';
 import type { Address, Slot } from '@solana/web3.js';
 import { useEffect, useState } from 'react';
 import React from 'react';
+
+import { gql } from '../../fetch';
 
 /**
  * Component properties.
  */
 interface Props {
     address: Address;
-    rpcGraphQL: RpcGraphQL;
 }
 
 /**
@@ -48,15 +48,9 @@ export default function AddressLookupTableAccount(props: Props) {
 
     useEffect(() => {
         const fetchData = async () => {
-            const { address, rpcGraphQL } = props;
-            const response = await rpcGraphQL.query(source, { address });
-            if (response.data?.account) {
-                setData(response.data.account as Data);
-            } else if (response.errors) {
-                response.errors.forEach(e => console.error(e));
-            } else {
-                throw 'Unknown error occurred';
-            }
+            const { address } = props;
+            const response = (await gql(source, { address })) as { account: Data };
+            setData(response.account);
         };
         fetchData();
     }, []);
@@ -64,7 +58,7 @@ export default function AddressLookupTableAccount(props: Props) {
     if (data) {
         return (
             <div>
-                <p>Addresses: {data.addresses}</p>
+                <p>Addresses: {data.addresses.length}</p>
                 <p>Authority: {data.authority.address}</p>
                 <p>Deactivation Slot: {data.deactivationSlot.toString()}</p>
                 <p>Last Extended Slot: {data.lastExtendedSlot.toString()}</p>

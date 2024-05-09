@@ -17,11 +17,11 @@ This GraphQL library:
 Provided here for demonstration is a web application - a basic, read-only wallet 
 and block explorer - that aims to showcase the GraphQL library's capabilities.
 
-- [ ] Querying the Solana RPC with GraphQL
+- [x] Querying the Solana RPC with GraphQL
 - [ ] Accounts:
   - [ ] Querying program accounts
   - [ ] Subslicing encoded account data
-  - [ ] JSON-parsed types
+  - [x] JSON-parsed types
   - [ ] Extending account types (IDL)
 - [ ] Instructions:
   - [ ] Querying transactions
@@ -69,6 +69,9 @@ npm run generate-transactions <LOCAL_VALIDATOR_RPC_ENDPOINT>
 ```
 
 Launch the application.
+Note you can define an `RPC_ENDPOINT` variable in a `.env` file in the root of
+the repository if you wish to use a custom endpoint. This value will default to
+`http://127.0.0.1:8899` if not provided.
 
 ```
 npm start

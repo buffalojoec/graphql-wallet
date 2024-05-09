@@ -17,6 +17,6 @@
         "target": "ESNext"
     },
     "include": [
-        "src"
+        "src", "server.ts"
     ]
 }
