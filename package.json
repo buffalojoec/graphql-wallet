@@ -40,8 +40,10 @@
     "format": "eslint --fix 'src/**/*.{js,jsx,ts,tsx}' && prettier --write 'src/**/*.{js,jsx,ts,tsx}'",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "prettier": "prettier --check 'src/**/*.{js,jsx,ts,tsx}'",
+    "typecheck": "tsc --noEmit",
     "start": "webpack serve --open --mode development"
   },
+  "prettier": "@solana/prettier-config-solana",
   "browserslist": {
     "development": [
       "last 1 chrome version",
