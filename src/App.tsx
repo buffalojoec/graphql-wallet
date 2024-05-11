@@ -4,6 +4,7 @@ import { type Address } from '@solana/web3.js';
 import React from 'react';
 
 import Account from './components/Account';
+import WebAppRouter from './routes';
 
 const ADDRESS_LOOKUP_TABLE_ACCOUNT_ADDRESS =
     '2JPQuT3dHtPjrdcbUQyrrT4XYRYaWpWfmAJ54SUapg6n' as Address<'2JPQuT3dHtPjrdcbUQyrrT4XYRYaWpWfmAJ54SUapg6n'>;
@@ -25,10 +26,8 @@ const VOTE_ACCOUNT_ADDRESS =
 function App() {
     return (
         <div className="App">
-            <header className="App-header">
-                <p>Accounts</p>
-            </header>
-            <body>
+            <WebAppRouter/>
+            {/* <body>
                 <Account address={ADDRESS_LOOKUP_TABLE_ACCOUNT_ADDRESS} parsed="lookupTable" />
                 <Account address={NONCE_ACCOUNT_ADDRESS} parsed="nonce" />
                 <Account
@@ -43,7 +42,7 @@ function App() {
                 <Account address={SPL_TOKEN_MINT_ADDRESS} parsed="tokenMint" />
                 <Account address={STAKE_ACCOUNT_ADDRESS} parsed="stake" />
                 <Account address={VOTE_ACCOUNT_ADDRESS} parsed="vote" />
-            </body>
+            </body> */}
         </div>
     );
 }
