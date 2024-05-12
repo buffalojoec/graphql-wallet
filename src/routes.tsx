@@ -1,17 +1,17 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Transaction from './components/Transaction';
-import Explorer from './components/Explorer';
-import Home from './components/Home';
+import TransactionPage from './components/TransactionPage';
+import ExplorerPage from './components/ExplorerPage';
+import AccountPage from './components/AccountPage';
+import HomePage from './components/HomePage';
 
 export default function WebAppRouter() {
     return(
         <Routes>
-            {/* <IndexRoute component={MainPage} /> */}
-            <Route path="/" element={<Home/>} />
-            <Route path="/accounts" element={<Transaction/>} />
-            <Route path="/transaction" element={<Transaction/>} />
-            <Route path="/explorer" element={<Explorer/>} />
+            <Route path="/" element={<HomePage/>} />
+            <Route path="/accounts" element={<AccountPage/>} />
+            <Route path="/transaction" element={<TransactionPage/>} />
+            <Route path="/explorer" element={<ExplorerPage/>} />
         </Routes>
     )
 };
