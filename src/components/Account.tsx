@@ -8,6 +8,7 @@ import NonceAccount from './accounts/NonceAccount';
 import TokenAccount from './accounts/SplTokenAccount';
 import MintAccount from './accounts/SplTokenMintAccount';
 import StakeAccount from './accounts/StakeAccount';
+import SysvarClockAccount from './accounts/SysvarClockAccount';
 import VoteAccount from './accounts/VoteAccount';
 
 /**
@@ -62,6 +63,8 @@ export default function Account(props: Props) {
 
     const parsedAccountData = () => {
         switch (props.parsed) {
+            case 'clock':
+                return <SysvarClockAccount address={props.address} />;
             case 'lookupTable':
                 return <AddressLookupTableAccount address={props.address} />;
             case 'nonce':

@@ -2,8 +2,11 @@ import React from 'react';
 import Account from '../components/Account';
 import { type Address } from '@solana/web3.js';
 
+const SYSVAR_CLOCK_ACCOUNT_ADDRESS =
+    'SysvarC1ock11111111111111111111111111111111' as Address<'SysvarC1ock11111111111111111111111111111111'>;
 const ADDRESS_LOOKUP_TABLE_ACCOUNT_ADDRESS =
     '2JPQuT3dHtPjrdcbUQyrrT4XYRYaWpWfmAJ54SUapg6n' as Address<'2JPQuT3dHtPjrdcbUQyrrT4XYRYaWpWfmAJ54SUapg6n'>;
+
 const NONCE_ACCOUNT_ADDRESS =
     'AiZExP8mK4RxDozh4r57knvqSZgkz86HrzPAMx61XMqU' as Address<'AiZExP8mK4RxDozh4r57knvqSZgkz86HrzPAMx61XMqU'>;
 const TOKEN_2022_ACCOUNT_ADDRESS =
@@ -20,9 +23,10 @@ const VOTE_ACCOUNT_ADDRESS =
     '4QUZQ4c7bZuJ4o4L8tYAEGnePFV27SUFEVmC7BYfsXRp' as Address<'4QUZQ4c7bZuJ4o4L8tYAEGnePFV27SUFEVmC7BYfsXRp'>;
 
 export default function AccountPage() {
-    return(
+    return (
         <>
             <body>
+                <Account address={SYSVAR_CLOCK_ACCOUNT_ADDRESS} parsed="clock" />
                 <Account address={ADDRESS_LOOKUP_TABLE_ACCOUNT_ADDRESS} parsed="lookupTable" />
                 <Account address={NONCE_ACCOUNT_ADDRESS} parsed="nonce" />
                 <Account
@@ -39,5 +43,5 @@ export default function AccountPage() {
                 <Account address={VOTE_ACCOUNT_ADDRESS} parsed="vote" />
             </body>
         </>
-    )
+    );
 }
