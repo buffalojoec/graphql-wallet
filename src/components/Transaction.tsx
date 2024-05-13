@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { gql } from '../fetch';
 import type { Signature } from '@solana/web3.js';
+import {  } from '@solana/web3.js';
 
 /**
  * Component GraphQL query.

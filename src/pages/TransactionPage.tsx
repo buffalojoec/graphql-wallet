@@ -1,5 +1,5 @@
 import React from 'react';
-import Transaction from '../Transaction';
+import Transaction from '../components/Transaction';
 
 export default function TransactionPage() {
     return (
