@@ -1,5 +1,5 @@
 import React from 'react';
-import Account from './Account';
+import Account from '../Account';
 import { type Address } from '@solana/web3.js';
 
 const ADDRESS_LOOKUP_TABLE_ACCOUNT_ADDRESS =

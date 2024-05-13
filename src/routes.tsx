@@ -1,9 +1,9 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import TransactionPage from './components/TransactionPage';
-import ExplorerPage from './components/ExplorerPage';
-import AccountPage from './components/AccountPage';
-import HomePage from './components/HomePage';
+import TransactionPage from './components/pages/TransactionPage';
+import ExplorerPage from './components/pages/ExplorerPage';
+import AccountPage from './components/pages/AccountPage';
+import HomePage from './components/pages/HomePage';
 
 export default function WebAppRouter() {
     return(
