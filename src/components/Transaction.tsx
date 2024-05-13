@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { gql } from '../fetch';
-import type { Signature } from '@solana/web3.js';
+import { _fetch, gql } from '../fetch';
+import type { Address, Signature, Slot, TransactionMessage } from '@solana/web3.js';
 import {  } from '@solana/web3.js';
 
 /**
@@ -15,17 +15,38 @@ const source = /* GraphQL */ `
     }
 `;
 
-export default function Transaction() {
-    const [data, setData] = useState();
+/**
+ * Component GraphQL data.
+ */
+type Data = {
+    blockTime: bigint,
+    message: TransactionMessage,
+    signatures: [Signature],
+    slot: Slot,
+    version: String
+};
+
+interface Props {
+    address: Address
+}
+
+export default function Transaction(props: Props) {
+    const [data, setData] = useState<Array<Data>>();
 
     useEffect(() => {
-        const fetchData = async () => {
-            let signature = '67rSZV97NzE4B4ZeFqULqWZcNEV2KwNfDLMzecJmBheZ4sWhudqGAzypoBCKfeLkKtDQBGnkwgdrrFM8ZMaS3pkk' as Signature;
-            const response = (await gql(source, { signature }));
-            console.log(response)
-            setData(response.account);
+        const fetchSignaturesAndLoadTransactions = async () => {
+            const body = { address: props.address };
+            let signatures = await _fetch('/api/getSignaturesForAddress',body) as Array<Signature>;
+
+            const transactions:Array<Data> = [];
+            signatures.forEach(async (signature) => {
+                const response = (await gql(source, { signature:signature })) as { transaction: Data };
+                console.log(response)
+            })
+
+            setData(transactions);
         };
-        fetchData();
+        fetchSignaturesAndLoadTransactions();
     },[]);
     return (<></>);
 }

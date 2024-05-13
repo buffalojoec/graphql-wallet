@@ -20,3 +20,23 @@ export async function gql(...params: Parameters<RpcGraphQL['query']>) {
         return value;
     });
 }
+
+export async function _fetch(url:string, body: any){
+    const res = await fetch(url, {
+        body: JSON.stringify({
+            ...body
+        }),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        method: 'POST',
+    });
+
+    const text = await res.text();
+    return JSON.parse(text, (_, value) => {
+        if (value && typeof value === 'object' && '__bigint' in value) {
+            return BigInt(value['__bigint']);
+        }
+        return value;
+    });
+}

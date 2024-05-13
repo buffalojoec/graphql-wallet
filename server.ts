@@ -33,6 +33,14 @@ app.post('/api/graphql', async (req, res) => {
     return;
 });
 
+app.post('/api/getSignaturesForAddress', async(req, res) => {
+    const { address } = req.body;
+
+    let results = await rpc.getSignaturesForAddress(address).send();
+    const signatures = results.map(result => {return { signature: result.signature }});
+    res.send(JSON.stringify(signatures));
+});
+
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
