@@ -12,13 +12,13 @@ app.use(bodyParser.json());
 const rpc = createSolanaRpc(RPC_ENDPOINT);
 const rpcGraphQL = createRpcGraphQL(rpc);
 
-app.post('/api/graphql', async (req, res) => {
+app.post('/api/graphql', async (req, res, next) => {
     const { source, variableValues } = req.body;
     const response = await rpcGraphQL.query(source, variableValues);
 
     if (response.errors) {
         response.errors.forEach(e => console.error(e));
-        res.status(500).send('Server Error');
+        next({ statusCode:500, message: 'Server Error'});
     }
 
     if (response.data) {
@@ -33,12 +33,29 @@ app.post('/api/graphql', async (req, res) => {
     return;
 });
 
-app.post('/api/getSignaturesForAddress', async(req, res) => {
-    const { address } = req.body;
+type Error = {
+    statusCode: number,
+    message: string,
+    __code: number
+}
 
-    let results = await rpc.getSignaturesForAddress(address).send();
-    const signatures = results.map(result => {return { signature: result.signature }});
-    res.send(JSON.stringify(signatures));
+app.post('/api/getSignaturesForAddress', async(req, res, next) => {
+    try{
+        const { address } = req.body;
+
+        let results = await rpc.getSignaturesForAddress(address).send();
+        const signatures = results.map(result => result.signature );
+        console.log(signatures)
+        res.status(200).send(JSON.stringify(signatures));
+    }catch(e:any){
+        console.error(e)
+        let error:Error = { statusCode: 500, message: e?.context?.__serverMessage, __code: e?.context?.__code };
+        next(error);
+    }
+});
+
+app.use(function(err:Error, _req:any, res:any, _next:any){
+    res.status(err.statusCode).json({ err });
 });
 
 app.listen(PORT, () => {

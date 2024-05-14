@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { _fetch, gql } from '../fetch';
-import type { Address, Signature, Slot, TransactionMessage } from '@solana/web3.js';
+import { gql } from '../fetch';
+import type { Signature, Slot, TransactionMessage } from '@solana/web3.js';
 import {  } from '@solana/web3.js';
 
 /**
@@ -27,26 +27,21 @@ type Data = {
 };
 
 interface Props {
-    address: Address
+    signature: Signature 
 }
 
 export default function Transaction(props: Props) {
     const [data, setData] = useState<Array<Data>>();
-
     useEffect(() => {
-        const fetchSignaturesAndLoadTransactions = async () => {
-            const body = { address: props.address };
-            let signatures = await _fetch('/api/getSignaturesForAddress',body) as Array<Signature>;
-
-            const transactions:Array<Data> = [];
-            signatures.forEach(async (signature) => {
-                const response = (await gql(source, { signature:signature })) as { transaction: Data };
-                console.log(response)
-            })
-
-            setData(transactions);
+        const fetchData = async() => {
+            const { signature } = props;
+            const response = (await gql(source, { signature })) as { transaction: Data };
+            console.log(response)
         };
-        fetchSignaturesAndLoadTransactions();
+        fetchData();
     },[]);
-    return (<></>);
+    return (
+        <>
+        </>
+    );
 }
