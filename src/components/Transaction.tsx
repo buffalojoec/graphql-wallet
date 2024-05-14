@@ -83,26 +83,27 @@ export default function Transaction(props: Props) {
     },[]);
     return (
         <>
+            <p>Transaction with signatue: {props.signature}</p>
             {data && 
                 <>
-                    <h3>BlockTime: {data.blockTime.toString()}</h3>
+                    <p>BlockTime: {data.blockTime.toString()}</p>
 
                     <div>
                         <h3>Transaction Meta:</h3>
-                        <h3>Error: {data.meta.err}</h3>
-                        <h3>Fee: {data.meta.fee?.__bigint?.toString()}</h3>
-                        <h3>Log Messages: {data.meta.logMessages}</h3>
-                        <h3>Post Balances: {data.meta.postBalances?.__bigint?.toString()}</h3>
-                        <h3>Pre Balances : {data.meta.preBalances?.__bigint?.toString()}</h3>
+                        <p>Error: {data.meta.err}</p>
+                        <p>Fee: {data.meta.fee?.__bigint?.toString()}</p>
+                        <p>Log Messages: {data.meta.logMessages}</p>
+                        <p>Post Balances: {data.meta.postBalances?.__bigint?.toString()}</p>
+                        <p>Pre Balances : {data.meta.preBalances?.__bigint?.toString()}</p>
                     </div>
 
                     <div>
                         <h3>Signatues:</h3>
-                        <h3> {data.signatures.map(signature => <p>{signature}</p>)}</h3>
+                        <p> {data.signatures.map(signature => <p>{signature}</p>)}</p>
                     </div>
 
                     <div>
-                        <h3>Slot: {data.slot.toString()}</h3>
+                        <p>Slot: {data.slot.toString()}</p>
                     </div>
                 </>
             }
