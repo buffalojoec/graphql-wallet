@@ -35,7 +35,7 @@ type Data = {
 };
 
 type SlotHashEntry = {
-    hash: String;
+    hash: string;
     slot: Slot;
 };
 

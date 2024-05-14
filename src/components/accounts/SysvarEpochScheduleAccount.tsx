@@ -34,9 +34,9 @@ const source = /* GraphQL */ `
 type Data = {
     firstNormalEpoch: Epoch;
     firstNormalSlot: Slot;
-    leaderScheduleSlotOffset: BigInt;
-    slotsPerEpoch: BigInt;
-    warmup: Boolean;
+    leaderScheduleSlotOffset: bigint;
+    slotsPerEpoch: bigint;
+    warmup: boolean;
 };
 
 export default function SysvarEpochScheduleAccount(props: Props) {
@@ -58,7 +58,7 @@ export default function SysvarEpochScheduleAccount(props: Props) {
                 <p>First Normal Slot: {data.firstNormalSlot.toString()}</p>
                 <p>Leader Schedule Slot Offset {data.leaderScheduleSlotOffset.toString()}</p>
                 <p>Slots Per Epoch: {data.slotsPerEpoch.toString()}</p>
-                <p>Warmup: {data.warmup.toString()}</p>
+                <p>Warmup: {data.warmup}</p>
             </div>
         );
     }
