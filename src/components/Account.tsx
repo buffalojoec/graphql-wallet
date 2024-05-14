@@ -10,6 +10,9 @@ import MintAccount from './accounts/SplTokenMintAccount';
 import StakeAccount from './accounts/StakeAccount';
 import SysvarClockAccount from './accounts/SysvarClockAccount';
 import VoteAccount from './accounts/VoteAccount';
+import SysvarEpochScheduleAccount from './accounts/SysvarEpochScheduleAccount';
+import SysvarRentAccount from './accounts/SysvarRentAccount';
+import SysvarSlotHashesAccount from './accounts/SysvarSlotHashesAccount';
 
 /**
  * Component properties.
@@ -65,6 +68,12 @@ export default function Account(props: Props) {
         switch (props.parsed) {
             case 'clock':
                 return <SysvarClockAccount address={props.address} />;
+            case 'epochSchedule':
+                return <SysvarEpochScheduleAccount address={props.address} />;
+            case 'rent':
+                return <SysvarRentAccount address={props.address} />;
+            case 'slotHashes':
+                return <SysvarSlotHashesAccount address={props.address} />;
             case 'lookupTable':
                 return <AddressLookupTableAccount address={props.address} />;
             case 'nonce':
