@@ -4,10 +4,10 @@ import { Address, Signature, signature } from '@solana/web3.js';
 import { _fetch } from '../fetch';
 
 const LOCAL_WALLET_ADDRESS = 
-    '91RzsA7P8hYDqswUqapHWLSjGiMCFdT3kkoGkcpWZerW' as Address<'91RzsA7P8hYDqswUqapHWLSjGiMCFdT3kkoGkcpWZerW'>;  
+    'E4EKsiSoB2WZDMvm1jmcogf2gkFQZDAFsBiiGsCCYAkD' as Address<'E4EKsiSoB2WZDMvm1jmcogf2gkFQZDAFsBiiGsCCYAkD'>;  
 
 export default function TransactionPage() {
-    const [data, setData] = useState<Array<Signature>>(['fdasfsf' as Signature]);
+    const [data, setData] = useState<Array<Signature>>();
 
     useEffect(() => {
         const fetchSignaturesForAddress = async () => {
@@ -15,23 +15,20 @@ export default function TransactionPage() {
             let signatures = await _fetch('/api/getSignaturesForAddress',body) as Array<Signature>;
 
             // Display on UI that no transactions are found for this address
-            if(signatures){
-                setData(signatures)
-            }
+            setData(signatures)
         };
         fetchSignaturesForAddress();
     },[]);
 
-    if(data != undefined){
-        return (
-            <>
-                <h1>This is transaction page</h1>
-                {data.map(signature => <Transaction signature={signature}/>)}
-            </>
-        )
-    }
-
     return (
-        <><h1>Loading...</h1></>
+        <>
+            <h1> This is transaction page </h1>
+                {data 
+                 ? (data.length === 0 
+                    ? <h3>No Transactions Found</h3> 
+                    : data.map(signature => <Transaction signature={signature}/>) )
+                 : <h1>Loading Transactions...</h1>
+                }
+        </>
     )
 }

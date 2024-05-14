@@ -10,3 +10,4 @@ build
 dist
 target
 test-ledger
+mock-keypairs
