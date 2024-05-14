@@ -4,9 +4,14 @@ import { type Address } from '@solana/web3.js';
 
 const SYSVAR_CLOCK_ACCOUNT_ADDRESS =
     'SysvarC1ock11111111111111111111111111111111' as Address<'SysvarC1ock11111111111111111111111111111111'>;
+const SYSVAR_EPOCH_SCHEDULE_ADDRESS =
+    'SysvarEpochSchedu1e111111111111111111111111' as Address<'SysvarEpochSchedu1e111111111111111111111111'>;
+const SYSVAR_RENT_ADDRESS =
+    'SysvarRent111111111111111111111111111111111' as Address<'SysvarRent111111111111111111111111111111111'>;
+const SYSVAR_SLOT_HASHES_ADDRESS =
+    'SysvarS1otHashes111111111111111111111111111' as Address<'SysvarS1otHashes111111111111111111111111111'>;
 const ADDRESS_LOOKUP_TABLE_ACCOUNT_ADDRESS =
     '2JPQuT3dHtPjrdcbUQyrrT4XYRYaWpWfmAJ54SUapg6n' as Address<'2JPQuT3dHtPjrdcbUQyrrT4XYRYaWpWfmAJ54SUapg6n'>;
-
 const NONCE_ACCOUNT_ADDRESS =
     'AiZExP8mK4RxDozh4r57knvqSZgkz86HrzPAMx61XMqU' as Address<'AiZExP8mK4RxDozh4r57knvqSZgkz86HrzPAMx61XMqU'>;
 const TOKEN_2022_ACCOUNT_ADDRESS =
@@ -27,6 +32,9 @@ export default function AccountPage() {
         <>
             <body>
                 <Account address={SYSVAR_CLOCK_ACCOUNT_ADDRESS} parsed="clock" />
+                <Account address={SYSVAR_EPOCH_SCHEDULE_ADDRESS} parsed="epochSchedule" />
+                <Account address={SYSVAR_RENT_ADDRESS} parsed="rent" />
+                <Account address={SYSVAR_SLOT_HASHES_ADDRESS} parsed="slotHashes" />
                 <Account address={ADDRESS_LOOKUP_TABLE_ACCOUNT_ADDRESS} parsed="lookupTable" />
                 <Account address={NONCE_ACCOUNT_ADDRESS} parsed="nonce" />
                 <Account
