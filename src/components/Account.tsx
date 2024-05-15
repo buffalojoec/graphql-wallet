@@ -14,6 +14,7 @@ import SysvarEpochScheduleAccount from './accounts/SysvarEpochScheduleAccount';
 import SysvarRentAccount from './accounts/SysvarRentAccount';
 import SysvarSlotHashesAccount from './accounts/SysvarSlotHashesAccount';
 import SplTokenMetadata from './accounts/token-extensions/SplTokenMetadata';
+import SplTokenGroup from './accounts/token-extensions/SplTokenGroup';
 
 /**
  * Component properties.
@@ -86,6 +87,7 @@ export default function Account(props: Props) {
                     <>
                         <MintAccount address={props.address} />
                         <SplTokenMetadata address={props.address} />
+                        <SplTokenGroup address={props.address} />
                     </>
                 );
             case 'stake':
