@@ -37,16 +37,13 @@ export default function AccountPage() {
                 <Account address={SYSVAR_SLOT_HASHES_ADDRESS} parsed="slotHashes" />
                 <Account address={ADDRESS_LOOKUP_TABLE_ACCOUNT_ADDRESS} parsed="lookupTable" />
                 <Account address={NONCE_ACCOUNT_ADDRESS} parsed="nonce" />
+                <Account address={TOKEN_2022_ACCOUNT_ADDRESS} parsed="tokenAccount" />
+                <Account address={TOKEN_2022_MINT_ADDRESS} parsed="tokenMint" />
+                <Account address={SPL_TOKEN_ACCOUNT_ADDRESS} parsed="tokenAccount" />
                 <Account
-                    address={TOKEN_2022_ACCOUNT_ADDRESS}
-                    // parsed="tokenAccount"
-                />
-                <Account
-                    address={TOKEN_2022_MINT_ADDRESS}
+                    address={SPL_TOKEN_MINT_ADDRESS}
                     // parsed="tokenMint"
                 />
-                <Account address={SPL_TOKEN_ACCOUNT_ADDRESS} parsed="tokenAccount" />
-                <Account address={SPL_TOKEN_MINT_ADDRESS} parsed="tokenMint" />
                 <Account address={STAKE_ACCOUNT_ADDRESS} parsed="stake" />
                 <Account address={VOTE_ACCOUNT_ADDRESS} parsed="vote" />
             </body>
