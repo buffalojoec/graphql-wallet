@@ -13,6 +13,7 @@ import VoteAccount from './accounts/VoteAccount';
 import SysvarEpochScheduleAccount from './accounts/SysvarEpochScheduleAccount';
 import SysvarRentAccount from './accounts/SysvarRentAccount';
 import SysvarSlotHashesAccount from './accounts/SysvarSlotHashesAccount';
+import SplTokenMetadata from './accounts/token-extensions/SplTokenMetadata';
 
 /**
  * Component properties.
@@ -81,7 +82,12 @@ export default function Account(props: Props) {
             case 'tokenAccount':
                 return <TokenAccount address={props.address} />;
             case 'tokenMint':
-                return <MintAccount address={props.address} />;
+                return (
+                    <>
+                        <MintAccount address={props.address} />
+                        <SplTokenMetadata address={props.address} />
+                    </>
+                );
             case 'stake':
                 return <StakeAccount address={props.address} />;
             case 'vote':
