@@ -5,7 +5,7 @@ module.exports = {
     entry: './src/index.tsx',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js'
+        filename: 'bundle.js',
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
@@ -18,24 +18,19 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: [
-                            "@babel/preset-env",
-                            "@babel/preset-react",
-                            "@babel/preset-typescript"
-                        ]
-                    }
-                }
+                        presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+                    },
+                },
             },
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader']
+                use: ['style-loader', 'css-loader'],
             },
             {
                 test: /\.svg$/,
-                use: ['@svgr/webpack', 'url-loader']
-            }
-
-        ]
+                use: ['@svgr/webpack', 'url-loader'],
+            },
+        ],
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -52,7 +47,7 @@ module.exports = {
             {
                 context: '/api',
                 target: 'http://localhost:3001',
-            }
+            },
         ],
         static: {
             directory: path.join(__dirname, 'public'),

@@ -1,6 +1,7 @@
-import React from 'react';
-import Account from '../components/Account';
 import { type Address } from '@solana/web3.js';
+import React from 'react';
+
+import Account from '../components/Account';
 
 const SYSVAR_CLOCK_ACCOUNT_ADDRESS =
     'SysvarC1ock11111111111111111111111111111111' as Address<'SysvarC1ock11111111111111111111111111111111'>;

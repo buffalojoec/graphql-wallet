@@ -9,12 +9,12 @@ import TokenAccount from './accounts/SplTokenAccount';
 import MintAccount from './accounts/SplTokenMintAccount';
 import StakeAccount from './accounts/StakeAccount';
 import SysvarClockAccount from './accounts/SysvarClockAccount';
-import VoteAccount from './accounts/VoteAccount';
 import SysvarEpochScheduleAccount from './accounts/SysvarEpochScheduleAccount';
 import SysvarRentAccount from './accounts/SysvarRentAccount';
 import SysvarSlotHashesAccount from './accounts/SysvarSlotHashesAccount';
-import SplTokenMetadata from './accounts/token-extensions/SplTokenMetadata';
 import SplTokenGroup from './accounts/token-extensions/SplTokenGroup';
+import SplTokenMetadata from './accounts/token-extensions/SplTokenMetadata';
+import VoteAccount from './accounts/VoteAccount';
 
 /**
  * Component properties.

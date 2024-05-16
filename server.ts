@@ -23,26 +23,28 @@ app.post('/api/graphql', async (req, res) => {
     }
 
     if (response.data) {
-        res.send(JSON.stringify(response.data, (_, value) => {
-            if (typeof value === 'bigint') {
-                return { __bigint: value.toString() };
-            }
-            return value;
-        }));
+        res.send(
+            JSON.stringify(response.data, (_, value) => {
+                if (typeof value === 'bigint') {
+                    return { __bigint: value.toString() };
+                }
+                return value;
+            }),
+        );
     }
 
     return;
 });
 
-app.post('/api/getSignaturesForAddress', async(req, res) => {
-    try{
+app.post('/api/getSignaturesForAddress', async (req, res) => {
+    try {
         const { address } = req.body;
 
-        let results = await rpc.getSignaturesForAddress(address).send();
-        const signatures = results.map(result => result.signature );
+        const results = await rpc.getSignaturesForAddress(address).send();
+        const signatures = results.map(result => result.signature);
         res.status(200).send(JSON.stringify(signatures));
-    }catch(e){
-        console.error(e)
+    } catch (e) {
+        console.error(e);
         res.status(500).send(SERVER_ERROR);
     }
 });
