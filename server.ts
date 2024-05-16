@@ -5,6 +5,7 @@ import express from 'express';
 
 const PORT = process.env.SERVER_PORT || 3001;
 const RPC_ENDPOINT = process.env.RPC_ENDPOINT || 'http://127.0.0.1:8899';
+const SERVER_ERROR = 'SERVER ERROR';
 
 const app = express();
 app.use(bodyParser.json());
@@ -18,7 +19,7 @@ app.post('/api/graphql', async (req, res) => {
 
     if (response.errors) {
         response.errors.forEach(e => console.error(e));
-        res.status(500).send('Server Error');
+        res.status(500).send(SERVER_ERROR);
     }
 
     if (response.data) {
@@ -31,6 +32,19 @@ app.post('/api/graphql', async (req, res) => {
     }
 
     return;
+});
+
+app.post('/api/getSignaturesForAddress', async(req, res) => {
+    try{
+        const { address } = req.body;
+
+        let results = await rpc.getSignaturesForAddress(address).send();
+        const signatures = results.map(result => result.signature );
+        res.status(200).send(JSON.stringify(signatures));
+    }catch(e){
+        console.error(e)
+        res.status(500).send(SERVER_ERROR);
+    }
 });
 
 app.listen(PORT, () => {

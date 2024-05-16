@@ -1,5 +1,5 @@
 import React from 'react';
 
 export default function ExplorerPage() {
-    return <h1>This is Explorer Page</h1>
+    return <h1>This is Explorer Page</h1>;
 }
