@@ -6,14 +6,15 @@ on:
 jobs:
   check-formatting:
 
+    runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
-         uses: actions/checkout@v4
+        uses: actions/checkout@v4
 
       - name: Install Dependencies
-         cache: 'npm'
-         run: npm install
-         shell: bash
+        run: npm install
+        shell: bash
 
       - name: Test Lint
         run: npm run lint
