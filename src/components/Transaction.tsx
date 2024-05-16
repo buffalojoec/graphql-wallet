@@ -116,8 +116,8 @@ export default function Transaction(props: Props) {
                             <h3>Signatues:</h3>
                             <p>
                                 {' '}
-                                {data.signatures.map(signature => (
-                                    <p>{signature}</p>
+                                {data.signatures.map((signature, i) => (
+                                    <p key={i}>{signature}</p>
                                 ))}
                             </p>
                         </div>

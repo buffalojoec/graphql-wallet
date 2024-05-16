@@ -2,7 +2,7 @@ import { Address, Signature } from '@solana/web3.js';
 import React, { useEffect, useState } from 'react';
 
 import Transaction from '../components/Transaction';
-import { _fetch } from '../fetch';
+import { postRequest } from '../fetch';
 
 const LOCAL_WALLET_ADDRESS =
     '4scaGGKPmGcWR3ZGgdFtEFrzHHN1n6qNWhx9W5QnWGiK' as Address<'4scaGGKPmGcWR3ZGgdFtEFrzHHN1n6qNWhx9W5QnWGiK'>;
@@ -13,7 +13,7 @@ export default function TransactionPage() {
     useEffect(() => {
         const fetchSignaturesForAddress = async () => {
             const body = { address: LOCAL_WALLET_ADDRESS };
-            const signatures = (await _fetch('/api/getSignaturesForAddress', body)) as Array<Signature>;
+            const signatures = (await postRequest('/api/getSignaturesForAddress', body)) as Array<Signature>;
             if (!signatures) {
                 return setData([]);
             }

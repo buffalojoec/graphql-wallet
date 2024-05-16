@@ -40,7 +40,6 @@ app.post('/api/getSignaturesForAddress', async(req, res) => {
 
         let results = await rpc.getSignaturesForAddress(address).send();
         const signatures = results.map(result => result.signature );
-        console.log(signatures)
         res.status(200).send(JSON.stringify(signatures));
     }catch(e){
         console.error(e)
