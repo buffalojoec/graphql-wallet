@@ -1,0 +1,24 @@
+name: Node.js CI 
+
+on:
+  pull_request:
+
+jobs:
+  check-formatting:
+
+    steps:
+      - name: Checkout
+         uses: actions/checkout@v4
+
+      - name: Install Dependencies
+         cache: 'npm'
+         run: npm install
+         shell: bash
+
+      - name: Test Lint
+        run: npm run lint
+        shell: bash
+
+      - name: Test Prettier
+        run: npm run prettier
+        shell: bash
