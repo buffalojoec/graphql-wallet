@@ -7,9 +7,7 @@ export async function gql(...params: Parameters<RpcGraphQL['query']>) {
 
 export async function postRequest(endpoint: string, body: object) {
     const res = await fetch(endpoint, {
-        body: JSON.stringify({
-            ...body,
-        }),
+        body: JSON.stringify(body),
         headers: {
             'Content-Type': 'application/json',
         },
