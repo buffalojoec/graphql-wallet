@@ -10,7 +10,7 @@ function App() {
             <header>
                 <h1>GraphQL Wallet</h1>
             </header>
-            <WebAppRouter/>
+            <WebAppRouter />
         </div>
     );
 }

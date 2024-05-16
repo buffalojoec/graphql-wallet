@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { Address, Signature } from '@solana/web3.js';
+import React, { useEffect, useState } from 'react';
+
 import Transaction from '../components/Transaction';
-import { Address, Signature, signature } from '@solana/web3.js';
 import { _fetch } from '../fetch';
 
-const LOCAL_WALLET_ADDRESS = 
-    'E4EKsiSoB2WZDMvm1jmcogf2gkFQZDAFsBiiGsCCYAkD' as Address<'E4EKsiSoB2WZDMvm1jmcogf2gkFQZDAFsBiiGsCCYAkD'>;  
+const LOCAL_WALLET_ADDRESS =
+    '4scaGGKPmGcWR3ZGgdFtEFrzHHN1n6qNWhx9W5QnWGiK' as Address<'4scaGGKPmGcWR3ZGgdFtEFrzHHN1n6qNWhx9W5QnWGiK'>;
 
 export default function TransactionPage() {
     const [data, setData] = useState<Array<Signature>>();
@@ -12,23 +13,28 @@ export default function TransactionPage() {
     useEffect(() => {
         const fetchSignaturesForAddress = async () => {
             const body = { address: LOCAL_WALLET_ADDRESS };
-            let signatures = await _fetch('/api/getSignaturesForAddress',body) as Array<Signature>;
+            const signatures = (await _fetch('/api/getSignaturesForAddress', body)) as Array<Signature>;
+            if (!signatures) {
+                return setData([]);
+            }
 
-            // Display on UI that no transactions are found for this address
-            setData(signatures)
+            setData(signatures);
         };
         fetchSignaturesForAddress();
-    },[]);
+    }, []);
 
     return (
         <>
             <h1> This is transaction page </h1>
-                {data 
-                 ? (data.length === 0 
-                    ? <h3>No Transactions Found</h3> 
-                    : data.map(signature => <Transaction signature={signature}/>) )
-                 : <h1>Loading Transactions...</h1>
-                }
+            {data ? (
+                data.length === 0 ? (
+                    <h3>No Transactions Found</h3>
+                ) : (
+                    data.map(signature => <Transaction signature={signature} />)
+                )
+            ) : (
+                <h1>Loading Transactions...</h1>
+            )}
         </>
-    )
+    );
 }

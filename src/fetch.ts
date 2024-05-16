@@ -2,10 +2,17 @@ import type { RpcGraphQL } from '@solana/rpc-graphql';
 
 export async function gql(...params: Parameters<RpcGraphQL['query']>) {
     const [source, variableValues] = params;
-    const res = await fetch('/api/graphql', {
+    return await postRequest('/api/graphql', { source, variableValues });
+}
+
+export async function _fetch(url: string, body: object) {
+    return await postRequest(url, body);
+}
+
+async function postRequest(url: string, body: object) {
+    const res = await fetch(url, {
         body: JSON.stringify({
-            source,
-            variableValues,
+            ...body,
         }),
         headers: {
             'Content-Type': 'application/json',
@@ -13,34 +20,14 @@ export async function gql(...params: Parameters<RpcGraphQL['query']>) {
         method: 'POST',
     });
     const text = await res.text();
+    if (text === 'SERVER ERROR') {
+        console.error('Server Error. Check Server logs');
+        return;
+    }
     return JSON.parse(text, (_, value) => {
         if (value && typeof value === 'object' && '__bigint' in value) {
             return BigInt(value['__bigint']);
         }
         return value;
     });
-}
-
-export async function _fetch(url:string, body: any){
-    const res = await fetch(url, {
-        body: JSON.stringify({
-            ...body
-        }),
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        method: 'POST',
-    });
-
-    const text = await res.text();
-    let result = JSON.parse(text, (_, value) => {
-        if (value && typeof value === 'object' && '__bigint' in value) {
-            return BigInt(value['__bigint']);
-        }
-        return value;
-    });
-    if(!result.err || result?.err?.statusCode == 200){
-        return result;
-    }
-    return [];
 }

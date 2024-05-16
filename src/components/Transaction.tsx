@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { gql } from '../fetch';
 import type { Signature, Slot, Transaction, TransactionMessage } from '@solana/web3.js';
+import React, { useEffect, useState } from 'react';
+
+import { gql } from '../fetch';
 
 /**
  * Component GraphQL query.
@@ -8,18 +9,15 @@ import type { Signature, Slot, Transaction, TransactionMessage } from '@solana/w
 
 // Can add more fields based on requirement
 const source = /* GraphQL */ `
-    fragment TransactionMessageAccountKey on TransactionMessageAccountKey {
-        pubkey 
-        signer 
-        source 
-        writable
-    }
     query testQuery($signature: Signature!) {
         transaction(signature: $signature) {
             blockTime
             message {
                 accountKeys {
-                    ...TransactionMessageAccountKey
+                    pubkey
+                    signer
+                    source
+                    writable
                 }
                 addressTableLookups {
                     accountKey
@@ -27,9 +25,9 @@ const source = /* GraphQL */ `
                     writableIndexes
                 }
                 header {
-                    numReadonlySignedAccounts 
-                    numReadonlyUnsignedAccounts 
-                    numRequiredSignatures 
+                    numReadonlySignedAccounts
+                    numReadonlyUnsignedAccounts
+                    numRequiredSignatures
                 }
                 recentBlockhash
             }
@@ -51,62 +49,87 @@ const source = /* GraphQL */ `
  * Component GraphQL data.
  */
 type Data = {
-    blockTime: string,
-    // Should Include more type to display info 
-    message: TransactionMessage,
+    blockTime: string;
+    // Should Include more type to display info
+    message: TransactionMessage;
     // Should have a TransactionMetadata type in sdk
     meta: {
-        fee: { __bigint: string} | undefined,
-        err: string | undefined,
-        logMessages: string | undefined,
-        postBalances: { __bigint: string} | undefined,
-        preBalances: { __bigint: string} | undefined 
-    }
-    signatures: [Signature],
-    slot: Slot,
-    version: String
+        err: string | undefined;
+        fee: bigint;
+        logMessages: string | undefined;
+        postBalances: [bigint];
+        preBalances: [bigint];
+    };
+    signatures: [Signature];
+    slot: Slot;
+    version: string;
 };
 
 interface Props {
-    signature: Signature 
+    signature: Signature;
 }
 
 export default function Transaction(props: Props) {
     const [data, setData] = useState<Data>();
     useEffect(() => {
-        const fetchData = async() => {
+        const fetchData = async () => {
             const { signature } = props;
             const { transaction } = (await gql(source, { signature })) as { transaction: Data };
             setData(transaction);
         };
         fetchData();
-    },[]);
+    }, []);
     return (
         <>
             <p>Transaction with signatue: {props.signature}</p>
-            {data && 
+            {data && (
                 <>
                     <p>BlockTime: {data.blockTime.toString()}</p>
 
-                    <div>
-                        <h3>Transaction Meta:</h3>
-                        <p>Error: {data.meta.err}</p>
-                        <p>Fee: {data.meta.fee?.__bigint?.toString()}</p>
-                        <p>Log Messages: {data.meta.logMessages}</p>
-                        <p>Post Balances: {data.meta.postBalances?.__bigint?.toString()}</p>
-                        <p>Pre Balances : {data.meta.preBalances?.__bigint?.toString()}</p>
-                    </div>
+                    {data.meta && (
+                        <div>
+                            <h3>Transaction Meta:</h3>
+                            {data.meta.err && <p>Error: {data.meta.err}</p>}
+                            {data.meta.fee !== null && <p>Fee: {data.meta.fee.toString()}</p>}
+                            {data.meta.logMessages && <p>Log Messages: {data.meta.logMessages}</p>}
+                            {data.meta.postBalances.length > 0 && (
+                                <p>
+                                    Post Balances:{' '}
+                                    {data.meta.postBalances.map((balance, i) => (
+                                        <span key={i}>{balance.toString()}, &nbsp;</span>
+                                    ))}
+                                </p>
+                            )}
+                            {data.meta.preBalances.length > 0 && (
+                                <p>
+                                    Pre Balances :{' '}
+                                    {data.meta.preBalances.map((balance, i) => (
+                                        <span key={i}>{balance.toString()}, &nbsp;</span>
+                                    ))}
+                                </p>
+                            )}
+                        </div>
+                    )}
 
-                    <div>
-                        <h3>Signatues:</h3>
-                        <p> {data.signatures.map(signature => <p>{signature}</p>)}</p>
-                    </div>
+                    {data.signatures && (
+                        <div>
+                            <h3>Signatues:</h3>
+                            <p>
+                                {' '}
+                                {data.signatures.map(signature => (
+                                    <p>{signature}</p>
+                                ))}
+                            </p>
+                        </div>
+                    )}
 
-                    <div>
-                        <p>Slot: {data.slot.toString()}</p>
-                    </div>
+                    {data.slot && (
+                        <div>
+                            <p>Slot: {data.slot.toString()}</p>
+                        </div>
+                    )}
                 </>
-            }
+            )}
         </>
     );
 }
