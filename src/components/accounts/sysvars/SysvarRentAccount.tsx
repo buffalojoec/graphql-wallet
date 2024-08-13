@@ -1,8 +1,8 @@
-import type { Address, Slot } from '@solana/web3.js';
+import type { Address, LamportsUnsafeBeyond2Pow53Minus1 } from '@solana/web3.js';
 import React from 'react';
 import { useEffect, useState } from 'react';
 
-import { gql } from '../../fetch';
+import { gql } from '../../../fetch';
 
 /**
  * Component properties.
@@ -15,13 +15,12 @@ interface Props {
  * Component GraphQL query.
  */
 const source = /* GraphQL */ `
-    query SysvarSlotHashesAccount($address: Address!) {
+    query SysvarRentAccount($address: Address!) {
         account(address: $address) {
-            ... on SysvarSlotHashesAccount {
-                entries {
-                    hash
-                    slot
-                }
+            ... on SysvarRentAccount {
+                burnPercent
+                exemptionThreshold
+                lamportsPerByteYear
             }
         }
     }
@@ -31,15 +30,12 @@ const source = /* GraphQL */ `
  * Component GraphQL data.
  */
 type Data = {
-    entries: SlotHashEntry[];
+    burnPercent: number;
+    exemptionThreshold: number;
+    lamportsPerByteYear: LamportsUnsafeBeyond2Pow53Minus1;
 };
 
-type SlotHashEntry = {
-    hash: string;
-    slot: Slot;
-};
-
-export default function SysvarSlotHashesAccount(props: Props) {
+export default function SysvarRentAccount(props: Props) {
     const [data, setData] = useState<Data>();
 
     useEffect(() => {
@@ -54,8 +50,9 @@ export default function SysvarSlotHashesAccount(props: Props) {
     if (data) {
         return (
             <div>
-                <p>First Hash: {data.entries[0].hash}</p>
-                <p>First Slot: {data.entries[0].slot.toString()}</p>
+                <p>Burn Percent: {data.burnPercent}</p>
+                <p>Exemption Threshold: {data.exemptionThreshold}</p>
+                <p>Lamports Per Byte Year: {data.lamportsPerByteYear.toString()}</p>
             </div>
         );
     }

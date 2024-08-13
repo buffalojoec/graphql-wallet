@@ -2,7 +2,7 @@ import type { Address, Epoch, Slot } from '@solana/web3.js';
 import React from 'react';
 import { useEffect, useState } from 'react';
 
-import { gql } from '../../fetch';
+import { gql } from '../../../fetch';
 
 /**
  * Component properties.
