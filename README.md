@@ -42,6 +42,7 @@ and block explorer - that aims to showcase the GraphQL library's capabilities.
 
 -   NodeJS 20
 -   NPM
+-   PNPM
 -   Rust
 -   Shank CLI: `cargo-install shank-cli`
 -   Solana 1.18: `sh -c "$(curl -sSfL https://release.solana.com/v1.18.12/install)"`
@@ -49,15 +50,15 @@ and block explorer - that aims to showcase the GraphQL library's capabilities.
 Install the application's dependencies.
 
 ```
-npm install
+pnpm install
 ```
 
 In a separate terminal, start a local test validator.
-Note the provided `npm` command will start the local validator with all of the
+Note the provided `pnpm` command will start the local validator with all of the
 necessary account fixtures and the BPF program.
 
 ```
-npm run test-validator
+pnpm run test-validator
 ```
 
 Run the script to generate a bunch of transactions.
@@ -65,7 +66,7 @@ Run the script to generate a bunch of transactions.
 provided.
 
 ```
-npm run generate-transactions <LOCAL_VALIDATOR_RPC_ENDPOINT>
+pnpm run generate-transactions <LOCAL_VALIDATOR_RPC_ENDPOINT>
 ```
 
 Launch the application.
@@ -74,5 +75,5 @@ the repository if you wish to use a custom endpoint. This value will default to
 `http://127.0.0.1:8899` if not provided.
 
 ```
-npm start
+pnpm start
 ```
