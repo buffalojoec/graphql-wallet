@@ -1,0 +1,88 @@
+.accounts-page {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.accounts-page h3 {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.token-component {
+    background-color: #1a1a1a;
+    border-color: #b3b3b3;
+    border-radius: 8px;
+    border-style: solid;
+    border-width: 0.5px;
+    margin: 12px auto;
+    padding: 8px 24px;
+    width: 250px;
+}
+
+.mint-address {
+    color: #8f8e8e;
+    font-size: 12px;
+    margin-bottom: 8px;
+    opacity: 0.8;
+    overflow: hidden;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.token-details {
+    align-items: center;
+    display: flex;
+    margin: 10px 0 0 0;
+}
+
+.token-symbol-container {
+    align-items: center;
+    box-sizing: border-box;
+    border-color: #f769c0;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 2px;
+    display: flex;
+    height: 54px;
+    justify-content: center;
+    min-height: 54px;
+    min-width: 54px;
+    padding: 4px;
+    width: 54px;
+}
+
+.token-symbol {
+    align-items: center;
+    color: #ffffff;
+    display: flex;
+    font-size: 16px;
+    font-style: italic;
+    justify-content: center;
+    line-height: 1;
+    min-width: 24spx;
+    text-align: center;
+}
+
+.name-amount {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    text-align: left;
+    width: 100%;
+}
+
+.token-name {
+    align-items: center;
+    color: cyan;
+    font-size: 14px;
+    margin: auto auto auto 16px;
+}
+
+.token-amount {
+    align-items: center;
+    color: ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    margin: auto;
+}

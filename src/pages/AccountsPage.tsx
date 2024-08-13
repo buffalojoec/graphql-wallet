@@ -79,11 +79,17 @@ function parseTokenMetadataExtension(extensions: object[]) {
 
 function TokenComponent(props: Data['tokens'][number]) {
     return (
-        <div>
-            <p>Mint address: {props.mintAddress}</p>
-            <p>Name: {props.name}</p>
-            <p>Symbol: {props.symbol}</p>
-            <p>Amount: {props.amount.toString()}</p>
+        <div className="token-component">
+            <p className="mint-address">{props.mintAddress}</p>
+            <div className="token-details">
+                <div className="token-symbol-container">
+                    <p className="token-symbol">{props.symbol}</p>
+                </div>
+                <div className="name-amount">
+                    <p className="token-name">{props.name}</p>
+                    <p className="token-amount">{props.amount.toString()}</p>
+                </div>
+            </div>
         </div>
     );
 }
