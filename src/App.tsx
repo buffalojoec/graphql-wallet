@@ -28,8 +28,8 @@ function App() {
             </header>
             <NavBar />
             <Routes>
-                <Route path="/" element={<AccountsPage />} />
-                <Route path="/accounts" element={<AccountsPage />} />
+                <Route path="/" element={<AccountsPage walletAddress={WALLET_ADDRESS} />} />
+                <Route path="/accounts" element={<AccountsPage walletAddress={WALLET_ADDRESS} />} />
                 <Route path="/transactions" element={<TransactionsPage />} />
                 <Route path="/explorer" element={<ExplorerPage />} />
             </Routes>

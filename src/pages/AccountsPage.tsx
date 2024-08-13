@@ -1,53 +1,132 @@
-import { type Address } from '@solana/web3.js';
+import './AccountsPage.css';
+
+import type { Address } from '@solana/web3.js';
+import { useEffect, useState } from 'react';
 import React from 'react';
 
-import Account from '../components/Account';
+import { gql } from '../fetch';
 
-const SYSVAR_CLOCK_ACCOUNT_ADDRESS =
-    'SysvarC1ock11111111111111111111111111111111' as Address<'SysvarC1ock11111111111111111111111111111111'>;
-const SYSVAR_EPOCH_SCHEDULE_ADDRESS =
-    'SysvarEpochSchedu1e111111111111111111111111' as Address<'SysvarEpochSchedu1e111111111111111111111111'>;
-const SYSVAR_RENT_ADDRESS =
-    'SysvarRent111111111111111111111111111111111' as Address<'SysvarRent111111111111111111111111111111111'>;
-const SYSVAR_SLOT_HASHES_ADDRESS =
-    'SysvarS1otHashes111111111111111111111111111' as Address<'SysvarS1otHashes111111111111111111111111111'>;
-const ADDRESS_LOOKUP_TABLE_ACCOUNT_ADDRESS =
-    '2JPQuT3dHtPjrdcbUQyrrT4XYRYaWpWfmAJ54SUapg6n' as Address<'2JPQuT3dHtPjrdcbUQyrrT4XYRYaWpWfmAJ54SUapg6n'>;
-const NONCE_ACCOUNT_ADDRESS =
-    'AiZExP8mK4RxDozh4r57knvqSZgkz86HrzPAMx61XMqU' as Address<'AiZExP8mK4RxDozh4r57knvqSZgkz86HrzPAMx61XMqU'>;
-const TOKEN_2022_ACCOUNT_ADDRESS =
-    'aUg6iJ3p43hTJsxHrQ1KfqMQYStoFvqcSJRcc51cYzK' as Address<'aUg6iJ3p43hTJsxHrQ1KfqMQYStoFvqcSJRcc51cYzK'>;
-const TOKEN_2022_MINT_ADDRESS =
-    '5gSwsLGzyCwgwPJSnxjsQCaFeE19ZFaibHMLky9TDFim' as Address<'5gSwsLGzyCwgwPJSnxjsQCaFeE19ZFaibHMLky9TDFim'>;
-const SPL_TOKEN_ACCOUNT_ADDRESS =
-    'AyGCwnwxQMCqaU4ixReHt8h5W4dwmxU7eM3BEQBdWVca' as Address<'AyGCwnwxQMCqaU4ixReHt8h5W4dwmxU7eM3BEQBdWVca'>;
-const SPL_TOKEN_MINT_ADDRESS =
-    'Gh9ZwEmdLJ8DscKNTkTqPbNwLNNBjuSzaG9Vp2KGtKJr' as Address<'Gh9ZwEmdLJ8DscKNTkTqPbNwLNNBjuSzaG9Vp2KGtKJr'>;
-const STAKE_ACCOUNT_ADDRESS =
-    'CSg2vQGbnwWdSyJpwK4i3qGfB6FebaV3xQTx4U1MbixN' as Address<'CSg2vQGbnwWdSyJpwK4i3qGfB6FebaV3xQTx4U1MbixN'>;
-const VOTE_ACCOUNT_ADDRESS =
-    '4QUZQ4c7bZuJ4o4L8tYAEGnePFV27SUFEVmC7BYfsXRp' as Address<'4QUZQ4c7bZuJ4o4L8tYAEGnePFV27SUFEVmC7BYfsXRp'>;
+/**
+ * Component properties.
+ */
+interface Props {
+    walletAddress: Address;
+}
 
-export default function AccountPage() {
+/**
+ * Component GraphQL query.
+ */
+const source = /* GraphQL */ `
+    query AccountsPage($walletAddress: String!) {
+        # Token-2022 token accounts
+        tokens: programAccounts(
+            programAddress: "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
+            commitment: null
+            dataSizeFilters: [
+                {
+                    dataSize: 170 # Token account with immutable owner extension (165 + 1 + 2 + 2)
+                }
+            ]
+            memcmpFilters: [
+                {
+                    bytes: $walletAddress # Wallet address (owner)
+                    encoding: BASE_58 # Base58-encoded address
+                    offset: 32 # Offset 32 for owner
+                }
+            ]
+        ) {
+            ... on TokenAccount {
+                mint {
+                    # Query the mint info as well
+                    address
+                    ... on MintAccount {
+                        extensions {
+                            ... on SplTokenExtensionTokenMetadata {
+                                name
+                                symbol
+                            }
+                        }
+                    }
+                }
+                tokenAmount {
+                    uiAmount
+                }
+            }
+        }
+    }
+`;
+
+/**
+ * Component GraphQL data.
+ */
+type Data = {
+    tokens: {
+        amount: bigint;
+        mintAddress: Address;
+        name: string;
+        symbol: string;
+    }[];
+};
+
+function parseTokenMetadataExtension(extensions: object[]) {
+    for (const extension of extensions) {
+        if ('name' in extension && 'symbol' in extension) {
+            return [extension.name, extension.symbol];
+        }
+    }
+    return [null, null];
+}
+
+function TokenComponent(props: Data['tokens'][number]) {
     return (
-        <>
-            <body>
-                <Account address={SYSVAR_CLOCK_ACCOUNT_ADDRESS} parsed="clock" />
-                <Account address={SYSVAR_EPOCH_SCHEDULE_ADDRESS} parsed="epochSchedule" />
-                <Account address={SYSVAR_RENT_ADDRESS} parsed="rent" />
-                <Account address={SYSVAR_SLOT_HASHES_ADDRESS} parsed="slotHashes" />
-                <Account address={ADDRESS_LOOKUP_TABLE_ACCOUNT_ADDRESS} parsed="lookupTable" />
-                <Account address={NONCE_ACCOUNT_ADDRESS} parsed="nonce" />
-                <Account address={TOKEN_2022_ACCOUNT_ADDRESS} parsed="tokenAccount" />
-                <Account address={TOKEN_2022_MINT_ADDRESS} parsed="tokenMint" />
-                <Account address={SPL_TOKEN_ACCOUNT_ADDRESS} parsed="tokenAccount" />
-                <Account
-                    address={SPL_TOKEN_MINT_ADDRESS}
-                    // parsed="tokenMint"
-                />
-                <Account address={STAKE_ACCOUNT_ADDRESS} parsed="stake" />
-                <Account address={VOTE_ACCOUNT_ADDRESS} parsed="vote" />
-            </body>
-        </>
+        <div>
+            <p>Mint address: {props.mintAddress}</p>
+            <p>Name: {props.name}</p>
+            <p>Symbol: {props.symbol}</p>
+            <p>Amount: {props.amount.toString()}</p>
+        </div>
     );
 }
+
+function AccountsPage(props: Props) {
+    const [data, setData] = useState<Data>();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const { walletAddress } = props;
+            const response = await gql(source, { walletAddress });
+            const tokens = response.tokens.map(
+                (token: {
+                    mint: { address: Address; extensions: { extension: string; name: string; symbol: string }[] };
+                    tokenAmount: { uiAmount: bigint };
+                }) => {
+                    const amount = token.tokenAmount.uiAmount;
+                    const mintAddress = token.mint.address;
+                    const [name, symbol] = parseTokenMetadataExtension(token.mint.extensions);
+                    return { amount, mintAddress, name, symbol };
+                },
+            );
+            setData({ tokens });
+        };
+        fetchData();
+    }, []);
+
+    return (
+        <div className="accounts-page">
+            <h3>Tokens</h3>
+            {data?.tokens.map((token: Data['tokens'][number], i: React.Key | null | undefined) => (
+                <TokenComponent
+                    key={i}
+                    mintAddress={token.mintAddress}
+                    name={token.name}
+                    symbol={token.symbol}
+                    amount={token.amount}
+                />
+            ))}
+            <h3>Stake</h3>
+            <h3>Castle Raid!</h3>
+        </div>
+    );
+}
+
+export default AccountsPage;

@@ -29,27 +29,30 @@ const source = /* GraphQL */ `
  * Component GraphQL data.
  */
 type Data = {
-    address: Address;
-    lamports: LamportsUnsafeBeyond2Pow53Minus1;
+    account: {
+        address: Address;
+        lamports: LamportsUnsafeBeyond2Pow53Minus1;
+    };
 };
 
-type DatawithSolBalance = {
+type AddressAndSolBalance = {
     address: Address;
     solBalance: number;
 };
 
 function WalletAccount(props: Props) {
-    const [data, setData] = useState<DatawithSolBalance>();
+    const [data, setData] = useState<AddressAndSolBalance>();
 
     useEffect(() => {
         const fetchData = async () => {
             const { address } = props;
-            const response = (await gql(source, { address })) as { account: Data };
+            const response = (await gql(source, { address })) as Data;
             if (response.account.lamports) {
+                const address = response.account.address;
                 const solBalance = Number(response.account.lamports / 1_000_000_000n);
                 setData({
+                    address,
                     solBalance,
-                    ...response.account,
                 });
             }
         };
