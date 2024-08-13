@@ -1,4 +1,4 @@
-import { createRpcGraphQL } from '@solana/rpc-graphql';
+import { createSolanaRpcGraphQL } from '@solana/rpc-graphql';
 import { createSolanaRpc } from '@solana/web3.js';
 import bodyParser from 'body-parser';
 import express from 'express';
@@ -11,7 +11,7 @@ const app = express();
 app.use(bodyParser.json());
 
 const rpc = createSolanaRpc(RPC_ENDPOINT);
-const rpcGraphQL = createRpcGraphQL(rpc);
+const rpcGraphQL = createSolanaRpcGraphQL(rpc);
 
 app.post('/api/graphql', async (req, res) => {
     const { source, variableValues } = req.body;
