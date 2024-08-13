@@ -3,7 +3,7 @@ import './NavBar.css';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const NavBar: React.FC = () => {
+function NavBar() {
     return (
         <nav className="nav-bar">
             <ul className="nav-list">
@@ -25,6 +25,6 @@ const NavBar: React.FC = () => {
             </ul>
         </nav>
     );
-};
+}
 
 export default NavBar;

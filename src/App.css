@@ -30,3 +30,8 @@
     position: relative;
     text-transform: uppercase;
 }
+
+.header-wallet-account {
+    padding: 8px 16px;
+    margin-left: auto;
+}
