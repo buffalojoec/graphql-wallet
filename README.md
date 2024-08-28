@@ -17,25 +17,6 @@ This GraphQL library:
 Provided here for demonstration is a web application - a basic, read-only wallet
 and block explorer - that aims to showcase the GraphQL library's capabilities.
 
--   [x] Querying the Solana RPC with GraphQL
--   [ ] Accounts:
-    -   [ ] Querying program accounts
-    -   [ ] Subslicing encoded account data
-    -   [x] JSON-parsed types
-    -   [ ] Extending account types (IDL)
--   [ ] Instructions:
-    -   [ ] Querying transactions
-    -   [ ] Querying blocks
-    -   [ ] JSON-parsed types
-    -   [ ] Extending instruction types (IDL)
--   [ ] RPC request optimization:
-    -   [ ] Request coalescing
-    -   [ ] Nested queries
-    -   [ ] Response caching
--   [ ] Relay:
-    -   [ ] `node` queries
-    -   [ ] Connections
-
 ## Running the Demo
 
 **Requirements:**
